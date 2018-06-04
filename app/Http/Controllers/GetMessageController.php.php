@@ -2389,6 +2389,30 @@ class GetMessageController extends Controller
             }elseif ($userMessage == 'แนะนำการออกกำลังกาย' && $sequentsteps->seqcode == '0000'  ) {
                   //$case = 16;
                   $case = 20 ;
+
+
+             }elseif ($userMessage == 'เล่นเกม') {
+              $random_keys= array_rand($a,2) ;
+              $input =  $a[$random_keys[0]];
+              $json1 = file_get_contents('question_point.json');
+                 $json= json_decode($json1);
+                foreach($json->data as $item)
+                  {
+                      if($item->id == $input)
+                      {
+                         $userMessage1 = $item->question;
+                         $userMessage2 = $item->content;
+                                                 
+                      }
+                  }
+                (new ReplyMessageController)->replymessage2($replyToken,$userMessage1,$userMessage2);
+
+
+
+                 
+
+
+
 //////////////////////////////////////////////
             }elseif ($userMessage == 'หยุดการแจ้งเตือนทั้งหมด') {
                   $answer = '0';
